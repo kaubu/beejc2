@@ -315,3 +315,76 @@ supply at all, as long as it's above 0. It doesn't enforce it!
 
 ##### 6.6.3 Changing Arrays in Functions
 
+Here's an example where we pass a pointer to an array to a function, the
+function manipulates the values in that array, and those changes are visible to
+the caller:
+
+```c
+#include <stdio.h>
+
+void double_array(int *a, int len)
+{
+    // Multiply each element by 2
+
+    // This doubles the values in x in main() since x and a both pointer to the
+    // same array in memory!
+    for (int i = 0; i < len; i++) {
+        a[i] *= 2;
+    }
+}
+
+int main(void)
+{
+    int x[5] = {1, 2, 3, 4, 5};
+
+    double_array(x, 5);
+
+    for (int i = 0; i < 5; i++) {
+        printf("%d\n", x[i]);
+    }
+}
+```
+
+Even though we passed the array as type `int *` we accessed it using array
+notation `a[i]`. This is allowed.
+
+##### 6.6.4 Passing Multidimensional Arrays to Functions
+
+C needs to know all the dimensions (except the first one) so it has enough
+information to know where in memory to find the value.
+
+```c
+#include <stdio.h>
+
+void print_2D_array(int a[2][3])
+{
+    for (int row = 0; row < 2; row++) {
+        for (int col = 0; col < 3; col++) {
+            printf("%d\n", a[row][col]);
+        }
+
+        printf("\n");
+    }
+}
+
+int main(void)
+{
+    int x[2][3] = {
+        {1, 2, 3},
+        {4, 5, 6},
+    };
+
+    print_2D_array(x);
+}
+```
+
+But in this case, these two are equivalent:
+
+```c
+void print_2D_array(int a[2][3])
+void print_2D_array(int a[][3])
+```
+
+The compiler really only needs to know the second dimension so it can figure
+out how far to skip for each increment of the first dimension. In general, it
+needs to know all the dimensions except the first one.
