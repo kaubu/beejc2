@@ -221,3 +221,97 @@ int main(void)
 
 #### 6.6 Arrays and Pointers
 
+Arrays are really pointers, deep down.
+
+##### 6.6.1 Getting a Pointer to an Array
+
+When C programmers talk about getting a pointer to an array, they're talking
+about getting a pointer to the first element of an array.
+
+Here is the long way:
+
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    int a[5] = {11, 22, 33, 44, 55};
+    int *p;
+
+    p = &a[0];  // p points to the first element in an array
+
+    printf("%d\n", *p); // prints "11"
+}
+```
+
+But the shorter way is:
+
+```c
+p = &a[0];
+
+// is the same as
+
+p = a;
+```
+
+**Just referring to an array name in isolation is the same as getting a pointer
+to the first element of the array.**
+
+##### 6.6.2 Passing Single Dimensional Arrays to Functions
+
+```c
+#include <stdio.h>
+
+// Passing a pointer as the first element
+void times2(int *a, int len)
+{
+    for (int i = 0; i < len; i++) {
+        printf("%d x 2 = %d\n", a[i], a[i] * 2);
+    }
+}
+
+// Same thing, but with array notation
+void times3(int a[], int len)
+{
+    for (int i = 0; i < len; i++) {
+        printf("%d x 3 = %d\n", a[i], a[i] * 3);
+    }
+}
+
+// Same thing, but with array notation with size
+void times4(int a[5], int len)
+{
+    for (int i = 0; i < len; i++) {
+        printf("%d x 4 = %d\n", a[i], a[i] * 4);
+    }
+}
+
+int main(void)
+{
+    int x[5] = {11, 22, 33, 44, 55};
+
+    times2(x, 5);
+    times3(x, 5);
+    times4(x, 5);
+}
+```
+
+All these methods of listing the array as a parameter are identical.
+
+```c
+void times2(int *a, int len);
+void times3(int a[], int len);
+void times4(int a[5], int len);
+```
+
+The first is used most commonly by C users by far.
+
+In fact, in the latter example, the compiler doesn't care what number you
+supply at all, as long as it's above 0. It doesn't enforce it!
+
+> [!IMPORTANT]
+> However, the size of the array in the function declaration *does* matter when
+> you're passing multidimensional arrays into a function.
+
+##### 6.6.3 Changing Arrays in Functions
+
