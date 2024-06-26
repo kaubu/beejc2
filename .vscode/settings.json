@@ -77,6 +77,7 @@
     "*.inc": "c"
   },
   "cSpell.words": [
-    "srand"
+    "srand",
+    "Wextra"
   ]
 }
