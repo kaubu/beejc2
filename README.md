@@ -45,3 +45,8 @@ int main(void)
 4. [Functions](./notes/4-functions.md)
 5. [Pointers](./notes/5-pointers.md)
 6. [Arrays](./notes/6-arrays.md)
+
+## Errors
+
+* In chapter 7.3, it claims that some code will print out "all the characters in a string on the same line", but as it uses a newline `\n`, they do not print on the same line, unless said line is vertical.
+
