@@ -45,6 +45,7 @@ int main(void)
 4. [Functions](./notes/4-functions.md)
 5. [Pointers](./notes/5-pointers.md)
 6. [Arrays](./notes/6-arrays.md)
+7. [Strings](./notes/7-string.md)
 
 ## Errors
 
