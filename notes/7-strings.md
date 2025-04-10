@@ -245,3 +245,6 @@ int main(void)
 > source pointer is the second. A mnemonic you can use to remember this is that
 > it's the order you would have put `t` and `s` if an assigment `=` worked for
 > strings, with the source on the right and the destination on the left.
+
+[Previous](./6-arrays.md)
+[Next](./8-structs.md)

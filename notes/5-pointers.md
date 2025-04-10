@@ -99,3 +99,6 @@ int main(void)
     printf("%zu\n", sizeof *p);
 }
 ```
+
+[Previous](./4-functions.md)
+[Next](./6-arrays.md)

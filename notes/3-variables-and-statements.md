@@ -119,3 +119,6 @@ int main(void)
     } while (r != 37);
 }
 ```
+
+[Previous](./2-hello-world.md)
+[Next](./4-functions.md)

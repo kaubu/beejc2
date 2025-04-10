@@ -388,3 +388,6 @@ void print_2D_array(int a[][3])
 The compiler really only needs to know the second dimension so it can figure
 out how far to skip for each increment of the first dimension. In general, it
 needs to know all the dimensions except the first one.
+
+[Previous](./5-pointers.md)
+[Next](./7-strings.md)

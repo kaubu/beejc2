@@ -46,3 +46,6 @@ entered.
 
 In function definitions is one thing, but in a function prototype you should
 **definitely** use `void` when you have an empty parameter list.
+
+[Previous](./3-variables-and-statements.md)
+[Next](./5-pointers.md)
