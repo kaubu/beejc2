@@ -1,24 +1,13 @@
-### - Strings
+### 7 - Strings
 Strings aren't strings, but pointers. Like arrays, strings in C *barely exist*.
 
-<!-- TOC -->
 
-- [- Strings](#--strings)
-    - [- String Literals](#--string-literals)
-    - [- String Variables](#--string-variables)
-    - [- String Variables as Arrays](#--string-variables-as-arrays)
-    - [- String Initializers](#--string-initializers)
-    - [- Getting String Length](#--getting-string-length)
-    - [- String Termination](#--string-termination)
-    - [- Copying a String](#--copying-a-string)
 
-<!-- /TOC -->
-
-#### - String Literals
+#### 7.1 - String Literals
 
 ...
 
-#### - String Variables
+#### 7.2 - String Variables
 
 Creating a string literal:
 
@@ -37,7 +26,7 @@ char *s = "Hello, world!";
 printf("%s\n", s); // "Hello, world!"
 ```
 
-#### - String Variables as Arrays
+#### 7.3 - String Variables as Arrays
 
 Another option to create strings is to use arrays, which is nearly equivalent
 to the above `char*` usage:
@@ -91,7 +80,7 @@ And we can still use array notation!
 
 This is a hint that pointers and arrays are the same thing deep down.
 
-#### - String Initializers
+#### 7.4 - String Initializers
 
 The two initializers:
 
@@ -134,7 +123,7 @@ So remember: **If you have a pointer to a string literal, don't try to change
 it!** And if you use a string in double quotes to initialize an array, that's
 not actually a string literal.
 
-#### - Getting String Length
+#### 7.5 - Getting String Length
 
 You can't, since C doesn't track it for you. Though, there is a function in
 `<string.h>` called `strlen()` that can be used to compute the length of any
@@ -165,7 +154,7 @@ Great! So it *is* possible to get the string length.
 
 But if C doesn't track the length of the string anywhere, how does it know how long the string is?
 
-#### - String Termination
+#### 7.6 - String Termination
 
 C does strings differently than almost every modern programming language.
 
@@ -199,6 +188,60 @@ int my_strlen(char *s)
 
 That's basically how the built-in `strlen()` gets the job done.
 
-#### - Copying a String
+#### 7.7 - Copying a String
 
-You can't copy a strinng using the assignment operator
+You can't copy a strinng using the assignment operator. All that does is a copy a pointer to the first character, so you end up with two pointers to the same string:
+
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    char s[] = "Hello, world!";
+    char *t;
+
+    // This makes a copy of the pointer, not a copy of the string
+    t = s;
+
+    // We modify t
+    // This works because it's a pointer to an array
+    t[0] = 'z';
+
+    // But printing s shows the same modification!
+    // Because t and s point to the same string!
+
+    printf("%s\n", s);  // "zello, world!"
+}
+```
+
+If you want to make a copy of the string, you have to copy it a byte at a time. This is made easier with the `strcpy()` function.
+
+> **Before you copy the string, make sure you have room to copy it into,** i.e. the destination array that's going to hold the characters needs to be at least as long as the string you're copying.
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    char s[] = "Hello, world!";
+    char t[100];    // Each char is 1 byte, so plenty of room
+
+    // This makes a copy of the string
+    strcpy(t, s);   // dest, src - like assembly
+
+    // We modify t
+    t[0] = 'z';
+
+    // And s remains unaffected because it's a different string
+    printf("%s\n", s);  // "Hello, world!"
+
+    // But t has been changed
+    printf("%s\n", t);  // "zello, world!"
+}
+```
+
+> Notice with `strcpy()`, the destination pointer is the first argument and the
+> source pointer is the second. A mnemonic you can use to remember this is that
+> it's the order you would have put `t` and `s` if an assigment `=` worked for
+> strings, with the source on the right and the destination on the left.
